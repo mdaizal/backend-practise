@@ -9,6 +9,7 @@
   "author": "node_padawan",
   "license": "ISC",
   "dependencies": {
+    "bcryptjs": "^2.4.3",
     "boom": "^4.3.0",
     "glob": "^7.1.1",
     "good": "^7.1.0",

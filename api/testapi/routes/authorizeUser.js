@@ -1,5 +1,5 @@
 import JWT from 'jsonwebtoken';
-import { userLogin, createToken } from '../../../config';
+import { Login, createToken } from '../../../config';
 
 export default {
     method: 'post',
@@ -8,7 +8,7 @@ export default {
         auth: false,
         pre: [
             {
-                method: userLogin, assign: 'user'
+                method: Login, assign: 'user'
             }
         ],
         handler: (req, res) => {
