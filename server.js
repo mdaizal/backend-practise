@@ -3,11 +3,14 @@
 import hapi from 'hapi';
 import glob from 'glob';
 import path from 'path';
+import mongoose from 'mongoose';
 import { STATIC_ROUTES, GOOD_LOGGING, SECRET_KEY, validate } from './config';
 
 const server = new hapi.Server();
 
 server.connection({ port: 3003 });
+
+const dbUrl = 'mongodb://localhost:27017/hapi-app';
 
 // attach static routes
 server.register(require('inert'), (err) => {
@@ -65,5 +68,12 @@ server.register(GOOD_LOGGING, (err) => {
         }
 
         console.log(`Server is running at: ${server.info.uri}`);
+        mongoose.Promise = global.Promise;
+        mongoose.connect(dbUrl, {}, (err) => {
+            if(err){
+                throw err;
+            }
+        });
+
     });
 });
