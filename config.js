@@ -72,7 +72,7 @@ export const Login = (req, res) => {
         if(user) {
             bcrypt.compare(password, user.password, (err, isValid) => {
                 if(isValid){
-                    res({id: user._id, username: user.username, admin: user.admin, useragent: req.headers['user-agent']});
+                    res({id: user._id, username: user.username, admin: user.admin });
                 } else {
                     res(boom.badRequest('Wrong password'));
                 }
@@ -116,7 +116,7 @@ export const validate = (decoded, request, callback) => {
 
 export const createToken = (user) => {
     return (
-        { token: JWT.sign(user, SECRET_KEY, { algorithm: 'HS256', expiresIn: '10m' }) }
+        JWT.sign(user, SECRET_KEY, { algorithm: 'HS256', expiresIn: '10m' })
     );
 };
 
