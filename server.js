@@ -34,6 +34,16 @@ glob.sync(pattern, {
     server.route(route.default);
 });
 
+// attach parlimen api
+const parley = 'api/**/testapi/**/parlimen/*.js'
+glob.sync(parley, {
+    root: __dirname
+}).forEach(file => {
+    const route = require(path.join(__dirname, file));
+    console.log(`Attaching API routes: ${route.default.path} (${route.default.method})`);
+    server.route(route.default);
+});
+
 // attach restricted api
 server.register(require('hapi-auth-jwt2'), (err) => {
     if (err){
